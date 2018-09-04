@@ -1,0 +1,5 @@
+rootProject.name = 'bronapp'
+include 'bronapp-common'
+include 'bronapp-utils'
+include 'bronapp-web'
+

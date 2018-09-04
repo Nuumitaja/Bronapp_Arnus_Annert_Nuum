@@ -1,0 +1,10 @@
+DROP TABLE IF EXISTS doctor;
+
+CREATE TABLE doctor (
+	id BIGSERIAL PRIMARY KEY,
+	name VARCHAR(128) NOT NULL,
+	appointment TIMESTAMP NOT NULL,
+	patient VARCHAR(128),
+	patient_phone VARCHAR(64),
+	comment VARCHAR(2000)
+);

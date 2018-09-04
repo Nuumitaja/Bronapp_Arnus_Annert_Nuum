@@ -1,0 +1,28 @@
+allprojects {
+
+    apply plugin: 'java'
+
+    sourceCompatibility = 1.8
+
+    group 'ee.bcs.valiit'
+    version '1.0-SNAPSHOT'
+
+    ext {
+        springVersion = '5.0.8.RELEASE'
+        springDataVersion = '2.0.9.RELEASE'
+        hibernateVersion = '5.3.5.Final'
+        hibernateJpaVersion = '1.0.2.Final'
+        postgresqlVersion = '9.4.1212'
+        jacksonVersion = '2.9.6'
+        lombokVersion = '1.18.2'
+        slf4jVersion = '1.7.25'
+        junitVersion = '4.12'
+    }
+
+}
+
+subprojects {
+    repositories {
+        mavenCentral()
+    }
+}
