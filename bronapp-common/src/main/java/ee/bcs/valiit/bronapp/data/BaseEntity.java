@@ -16,4 +16,5 @@ public abstract class BaseEntity implements Serializable {
     @Column(name = "id")
     private Long id;
 
+    public abstract void setActive(boolean b);
 }

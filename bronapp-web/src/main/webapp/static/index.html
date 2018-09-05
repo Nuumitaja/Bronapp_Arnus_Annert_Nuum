@@ -3,10 +3,10 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>Bank</title>
+    <title>Bronapp</title>
     <link rel="stylesheet" href="css/bootstrap.min.css" />
     <link rel="stylesheet" href="css/jquery-ui.min.css" />
-    <link rel="stylesheet" href="css/bank.css" />
+    <link rel="stylesheet" href="css/bronapp.css" />
 </head>
 
 <body>
@@ -16,57 +16,58 @@
         <img src="static/logo.jpg" style="padding-top: 30px; padding-bottom: 30px;" />
         <ul class="nav nav-pills mb-3">
             <li class="nav-item">
-                <a class="nav-link active" id="accounts-tab" data-toggle="pill" href="#accounts" role="tab" aria-controls="accounts" aria-selected="true">Accounts</a>
+                <a class="nav-link active" id="doctors-tab" data-toggle="pill" href="#doctors" role="tab" aria-controls="doctors" aria-selected="true">Doctors</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" id="transactions-tab" data-toggle="pill" href="#transactions" role="tab" aria-controls="transactions" aria-selected="false">Transactions</a>
+                <a class="nav-link" id="interactive-tab" data-toggle="pill" href="#interactive" role="tab" aria-controls="interactive" aria-selected="false">Interactive</a>
             </li>
         </ul>
 
         <div class="tab-content" style="padding-bottom: 30px;">
-            <div id="accounts" class="tab-pane fade show active" role="tabpanel" aria-labelledby="accounts-tab">
+            <div id="doctors" class="tab-pane fade show active" role="tabpanel" aria-labelledby="doctors-tab">
                 <table class="table table-striped">
                     <thead>
                     <th scope="col">ID</th>
-                    <th scope="col">First name</th>
-                    <th scope="col">Last name</th>
-                    <th scope="col">Birthday</th>
-                    <th scope="col">Address</th>
-                    <th scope="col">Accounts</th>
+                    <th scope="col">Doctor</th>
+                    <th scope="col">Appointment</th>
+                    <th scope="col">Patient</th>
+                    <th scope="col">Patient phone</th>
+                    <th scope="col">Comment</th>
                     <th></th>
                     </thead>
-                    <tbody id="customer_list"></tbody>
+                    <tbody id="doctor_list"></tbody>
                 </table>
-                <button type="button" class="btn btn-primary" onclick="prepareCustomerAdd()">Add</button>
+                <button type="button" class="btn btn-primary" onclick="prepareDoctorAdd()">Add</button>
             </div>
-            <div id="transactions" class="tab-pane fade" role="tabpanel" aria-labelledby="transactions-tab">
-                Siia tuleb ülekannete tegemise funktsionaalsus ...
+            <div id="interactive" class="tab-pane fade" role="tabpanel" aria-labelledby="interactive-tab">
+                Siia tuleb Tiina projekt ...
             </div>
         </div>
     </div>
 
     <!-- Modal -->
-    <div class="modal fade" id="customer_modal" tabindex="-1" role="dialog" aria-labelledby="customer_modal_label" aria-hidden="true">
+    <div class="modal fade" id="doctor_modal" tabindex="-1" role="dialog" aria-labelledby="doctor_modal_label" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="customer_modal_label">Add/Edit Customer</h5>
+                    <h5 class="modal-title" id="doctor_modal_label">Add/Edit Patient info</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">x</span>
                     </button>
                 </div>
                 <div class="modal-body">
-                    <form name="customerForm">
+                    <form name="doctorForm">
                         <input type="hidden" name="id" id="id" value="0" />
-                        <input type="text" id="firstname" name="firstname" class="form-control" placeholder="First name" /><br />
-                        <input type="text" id="surname" name="surname" class="form-control" placeholder="Last name" /><br />
-                        <input type="text" id="birthday" name="birthday" readonly="readonly" class="form-control" placeholder="Birthday" /><br />
-                        <input type="text" id="address" name="address" class="form-control" placeholder="Address" />
+                        <input type="text" id="doctorname" name="doctorname" readonly="readonly" class="form-control" placeholder="Doctor" /><br />
+                        <input type="text" id="date" name="date" readonly="readonly" class="form-control" placeholder="Appointment" /><br />
+                        <input type="text" id="customername" name="customername" class="form-control" placeholder="Patient" /><br />
+                        <input type="text" id="phone" name="phone" class="form-control" placeholder="Patient phone" /><br />
+                        <input type="text" id="comment" name="comment" class="form-control" placeholder="Comment" />
                     </form>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-                    <button type="button" class="btn btn-primary" onclick="saveCustomer();" data-dismiss="modal">Submit</button>
+                    <button type="button" class="btn btn-primary" onclick="saveDoctor();" data-dismiss="modal">Submit</button>
                 </div>
             </div>
         </div>
@@ -82,12 +83,12 @@
             function() {
                 initUIControls();
                 // kutsun välja resti teenuse funktsiooni
-                giveMeAllCustomers();
+                giveMeAllDoctors();
             }
         );
 
         function initUIControls() {
-            $('#birthday').datepicker(
+            $('#date').datepicker(
                 {
                     dateFormat: 'dd.mm.yy',
                     showButtonPanel: true,
@@ -100,75 +101,78 @@
             );
         }
 
-        function giveMeAllCustomers() {
+        function giveMeAllDoctors() {
             $.ajax(
                 {
                     method: "GET",
-                    url: "/bank/customer/list",
+                    url: "/bronapp/doctor/list",
                     dataType: "json",
                     contentType: "application/json",
                     complete: function (response) {
-                        $('#customer_list').empty();
-                        var customers = response.responseJSON;
-                        for (var i = 0; i < customers.length; i++) {
+                        $('#doctor_list').empty();
+                        var doctors = response.responseJSON;
+                        for (var i = 0; i < doctors.length; i++) {
                             var row = "<tr>";
-                            row = row + "<td>" + customers[i].id + "</td>";
-                            row = row + "<td>" + customers[i].firstname + "</td>";
-                            row = row + "<td>" + customers[i].surname + "</td>";
-                            row = row + "<td>" + customers[i].birthday + "</td>";
-                            row = row + "<td>" + customers[i].address + "</td>";
+                            row = row + "<td>" + doctors[i].id + "</td>";
+                            row = row + "<td>" + doctors[i].doctorname + "</td>";
+                            row = row + "<td>" + doctors[i].date + "</td>";
+                            row = row + "<td>" + doctors[i].customername + "</td>";
+                            row = row + "<td>" + doctors[i].phone + "</td>";
+                            row = row + "<td>" + doctors[i].comment + "</td>";
                             row = row + "<td>";
-                            for (var j = 0; j < customers[i].accounts.length; j++) {
-                                row = row + customers[i].accounts[j].accountNumber + "<br />";
-                            }
+                            <!--for (var j = 0; j < doctors[i].accounts.length; j++) {-->
+                                <!--row = row + customers[i].accounts[j].accountNumber + "<br />";-->
+                            <!--}-->
                             row = row + "</td>";
-                            row = row + '<td><button class="btn btn-sm" onClick="prepareCustomer('
-                                + customers[i].id + ');">Edit</button>&nbsp;'
-                                + '<button class="btn btn-sm btn-danger" onClick="deleteCustomer('
-                                + customers[i].id + ');">Delete</button></td>';
+                            row = row + '<td><button class="btn btn-sm" onClick="prepareDoctor('
+                                + doctors[i].id + ');">Edit</button>&nbsp;'
+                                + '<button class="btn btn-sm btn-danger" onClick="deleteDoctor('
+                                + doctors[i].id + ');">Delete</button></td>';
                             row = row + "</tr>";
-                            $('#customer_list').append(row);
+                            $('#doctor_list').append(row);
                         }
                     }
                 }
             );
         }
 
-        function prepareCustomer(customerId) {
+        function prepareDoctor(doctorId) {
             $.ajax(
                 {
                     method: "GET",
-                    url: "/bank/customer/get/" + customerId,
+                    url: "/bronapp/doctor/get/" + doctorId,
                     dataType: "json",
                     contentType: "application/json",
                     complete: function (response) {
-                        var customer = response.responseJSON;
-                        $('#id').val(customer.id);
-                        $('#firstname').val(customer.firstname);
-                        $('#surname').val(customer.surname);
-                        $('#birthday').val(customer.birthday);
-                        $('#address').val(customer.address);
-                        $('#customer_modal').modal('show');
+                        var doctor = response.responseJSON;
+                        $('#id').val(doctor.id);
+                        $('#doctorname').val(doctor.doctorname);
+                        $('#date').val(doctor.date);
+                        $('#customername').val(doctor.customername);
+                        $('#phone').val(doctor.phone);
+                        $('#comment').val(doctor.comment);
+                        $('#doctor_modal').modal('show');
                     }
                 }
             );
         }
 
-        function prepareCustomerAdd() {
+        function prepareDoctorAdd() {
             $('#id').val(0);
-            $('#firstname').val("");
-            $('#surname').val("");
-            $('#birthday').val("");
-            $('#address').val("");
-            $('#customer_modal').modal('show');
+            $('#doctorname').val("");
+            $('#date').val("");
+            $('#customername').val("");
+            $('#phone').val("");
+            $('#comment').val("");
+            $('#doctor_modal').modal('show');
         }
 
-        function saveCustomer() {
+        function saveDoctor() {
             var url = "";
             if ($('#id').val() > 0) {
-                url = "/bank/customer/save";
+                url = "/bronapp/doctor/save";
             } else {
-                url = "/bank/customer/add";
+                url = "/bronapp/doctor/add";
             }
             $.ajax(
                 {
@@ -176,9 +180,9 @@
                     url: url,
                     dataType: "json",
                     contentType: "application/json",
-                    data: JSON.stringify(getData($('form[name=customerForm]').serializeArray())),
+                    data: JSON.stringify(getData($('form[name=doctorForm]').serializeArray())),
                     complete: function (response) {
-                        giveMeAllCustomers();
+                        giveMeAllDoctors();
                     }
                 }
             );
@@ -192,16 +196,16 @@
             return result;
         }
 
-        function deleteCustomer(customerId) {
+        function deleteDoctor(doctorId) {
             if (confirm("Oled Sa ikka täie aru juures?")) {
                 $.ajax(
                     {
                         method: "POST",
-                        url: "/bank/customer/delete/" + customerId,
+                        url: "/bronapp/doctor/delete/" + doctorId,
                         dataType: "json",
                         contentType: "application/json",
                         complete: function (response) {
-                            giveMeAllCustomers();
+                            giveMeAllDoctors();
                         }
                     }
                 );

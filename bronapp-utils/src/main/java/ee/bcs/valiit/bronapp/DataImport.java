@@ -37,7 +37,7 @@ public class DataImport {
                 doctor.setDate(date);
 
                 doctor = doctorRepository.save(doctor);
-//                doctor.setActive(true);
+                doctor.setActive(true);
             }
         } catch (IOException | ParseException e) {
             System.err.println("Importfaili lugemine ebaõnnestus!");

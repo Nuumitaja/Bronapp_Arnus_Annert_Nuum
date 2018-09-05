@@ -29,6 +29,7 @@ public class DoctorService {
     }
 
     public void save(Doctor dbDoctor) {
+        doctorRepository.save(dbDoctor);
     }
 }
 

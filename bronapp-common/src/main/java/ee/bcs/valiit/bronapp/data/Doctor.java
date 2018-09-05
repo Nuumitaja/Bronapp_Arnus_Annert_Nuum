@@ -33,6 +33,11 @@ public class Doctor extends BaseEntity {
     @Column(name = "comment")
     private String comment;
 
+    @Override
+    public void setActive(boolean b) {
+
+    }
+
 //    @OneToMany(fetch = FetchType.EAGER)
 //    @Fetch(FetchMode.SELECT)
 //    @JoinColumn(name = "customer_id")
