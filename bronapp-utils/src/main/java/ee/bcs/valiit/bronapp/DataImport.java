@@ -11,10 +11,12 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
 import java.util.Date;
 import java.util.List;
+import java.util.TimeZone;
 
 @Component
 public class DataImport {
@@ -32,14 +34,21 @@ public class DataImport {
                 Doctor doctor = new Doctor();
                 doctor.setDoctorname(lineParts[0]);
 
-                SimpleDateFormat format = new SimpleDateFormat("dd.MM.yyyy HH:mm");
-                Date date = format.parse(lineParts[1] +" "+ lineParts[2]);
+//                SimpleDateFormat format = new SimpleDateFormat("dd.MM.yyyy HH:mm");
+////                Date date = format.parse(lineParts[1] +" "+ lineParts[2]);
+////                doctor.setDate(date);
+
+                TimeZone.setDefault(TimeZone.getTimeZone("Europe/Tallinn"));
+                String str = lineParts[1] +" "+ lineParts[2];
+                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy HH:mm");
+                LocalDateTime dateTime = LocalDateTime.parse(str, formatter);
+                Date date = Date.from(dateTime.atZone(ZoneId.systemDefault()).toInstant());
                 doctor.setDate(date);
 
                 doctor = doctorRepository.save(doctor);
                 doctor.setActive(true);
             }
-        } catch (IOException | ParseException e) {
+        } catch (IOException e) {
             System.err.println("Importfaili lugemine ebaõnnestus!");
         }
     }

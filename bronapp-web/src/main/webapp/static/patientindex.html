@@ -24,21 +24,6 @@
         </ul>
 
         <div class="tab-content" style="padding-bottom: 30px;">
-            <div id="doctors" class="tab-pane fade show active" role="tabpanel" aria-labelledby="doctors-tab">
-                <table class="table table-striped">
-                    <thead>
-                    <th scope="col">ID</th>
-                    <th scope="col">Doctor</th>
-                    <th scope="col">Appointment</th>
-                    <th scope="col">Patient</th>
-                    <th scope="col">Patient phone</th>
-                    <th scope="col">Comment</th>
-                    <th></th>
-                    </thead>
-                    <tbody id="doctor_list"></tbody>
-                </table>
-                <button type="button" class="btn btn-primary" onclick="prepareDoctorAdd()">Add</button>
-            </div>
             <div id="booking" class="tab-pane fade" role="tabpanel" aria-labelledby="booking-tab">
                 Book an appointment here:
 
@@ -56,11 +41,11 @@
     </div>
 
     <!-- Modal -->
-    <div class="modal fade" id="doctor_modal" tabindex="-1" role="dialog" aria-labelledby="doctor_modal_label" aria-hidden="true">
+    <div class="modal fade" id="appointment_modal" tabindex="-1" role="dialog" aria-labelledby="appointment_modal_label" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="doctor_modal_label">Add/Edit Patient info</h5>
+                    <h5 class="modal-title" id="appointment_modal_label">Add booking</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">x</span>
                     </button>
@@ -78,33 +63,6 @@
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
                     <button type="button" class="btn btn-primary" onclick="saveDoctor();" data-dismiss="modal">Submit</button>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- Modal 2 appointment-->
-    <div class="modal fade" id="appointment_modal" tabindex="-1" role="dialog" aria-labelledby="appointment_modal_label" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="appointment_modal_label">Add booking</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">x</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <form name="AppointmentForm">
-                        <input type="hidden" name="id" id="id" value="0" />
-                        <input type="text" id="doctorname" name="doctorname" class="form-control" placeholder="Doctor" /><br />
-                        <input type="text" id="date" name="date" class="form-control" placeholder="Appointment" /><br />
-                        <input type="text" id="customername" name="customername" class="form-control" placeholder="Patient" /><br />
-                        <input type="text" id="phone" name="phone" class="form-control" placeholder="Patient phone" /><br />
-                        <input type="text" id="comment" name="comment" class="form-control" placeholder="Comment" />
-                    </form>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-                    <button type="button" class="btn btn-primary" onclick="saveDoctor();" data-dismiss="modal">Book</button>
                 </div>
             </div>
         </div>
@@ -146,41 +104,6 @@
                     dataType: "json",
                     contentType: "application/json",
                     complete: function (response) {
-                        $('#doctor_list').empty();
-                        var doctors = response.responseJSON;
-                        for (var i = 0; i < doctors.length; i++) {
-                            var row = "<tr>";
-                            row = row + "<td>" + doctors[i].id + "</td>";
-                            row = row + "<td>" + doctors[i].doctorname + "</td>";
-                            row = row + "<td>" + doctors[i].date + "</td>";
-                            row = row + "<td>" + doctors[i].customername + "</td>";
-                            row = row + "<td>" + doctors[i].phone + "</td>";
-                            row = row + "<td>" + doctors[i].comment + "</td>";
-                            row = row + "<td>";
-                            <!--for (var j = 0; j < doctors[i].accounts.length; j++) {-->
-                                <!--row = row + customers[i].accounts[j].accountNumber + "<br />";-->
-                            <!--}-->
-                            row = row + "</td>";
-                            row = row + '<td><button class="btn btn-sm" onClick="prepareDoctor('
-                                + doctors[i].id + ');">Edit</button>&nbsp;'
-                                + '<button class="btn btn-sm btn-danger" onClick="deleteDoctor('
-                                + doctors[i].id + ');">Delete</button></td>';
-                            row = row + "</tr>";
-                            $('#doctor_list').append(row);
-                        }
-                    }
-                }
-            );
-        }
-
-        function giveMeAllDoctors() {
-            $.ajax(
-                {
-                    method: "GET",
-                    url: "/bronapp/doctor/list",
-                    dataType: "json",
-                    contentType: "application/json",
-                    complete: function (response) {
                         $('#appointment_list').empty();
                         var doctors = response.responseJSON;
                         for (var i = 0; i < doctors.length; i++) {
@@ -202,6 +125,7 @@
                 }
             );
         }
+
         function prepareDoctor(doctorId) {
             $.ajax(
                 {

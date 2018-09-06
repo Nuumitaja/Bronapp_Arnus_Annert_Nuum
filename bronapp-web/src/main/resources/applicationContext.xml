@@ -48,6 +48,7 @@
                 <prop key="hibernate.jdbc.lob.non_contextual_creation">true</prop>
                 <prop key="hibernate.default_schema">public</prop>
                 <prop key="hibernate.enable_lazy_load_no_trans">true</prop>
+                <prop key="hibernate.jdbc.time_zone">Europe/Tallinn</prop>
             </props>
         </property>
     </bean>
