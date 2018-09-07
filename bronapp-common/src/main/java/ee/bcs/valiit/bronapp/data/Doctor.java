@@ -21,7 +21,7 @@ public class Doctor extends BaseEntity {
     private String doctorname;
 
     @Column(name = "appointment")
-    @JsonFormat(pattern = "dd.MM.yyyy HH:mm")
+    @JsonFormat(pattern = "dd.MM.yyyy HH:mm", timezone = "Europe/Tallinn")
     private Date date;
 
     @Column(name = "patient")
