@@ -23,6 +23,9 @@ public class MainController {
     @GetMapping("/")
     public String home() { return "/static/index.html";}
 
+    @GetMapping("/booking")
+    public String booking() { return "/static/booking.html";}
+
     @RequestMapping("/login")
     public String login(@RequestParam(value = "error", required = false) String error, @RequestParam(value = "logout", required = false) String logout) {
         if (error != null) {
