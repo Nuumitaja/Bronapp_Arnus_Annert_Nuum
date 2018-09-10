@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>Bronapp</title>
+    <title>Bronapp Booking</title>
     <link rel="stylesheet" href="css/bootstrap.min.css" />
     <link rel="stylesheet" href="css/jquery-ui.min.css" />
     <link rel="stylesheet" href="css/jquery.datetimepicker.min.css" />
@@ -37,7 +37,7 @@
                     </thead>
                     <tbody id="appointment_list"></tbody> <!--Testing-->
                 </table>
-                <button type="button" class="btn btn-primary" onclick="prepareAppointmentAdd()">Book</button>
+                <!--<button type="button" class="btn btn-primary" onclick="prepareAppointmentAdd()">Book</button>-->
             </div>
         </div>
     </div>
@@ -56,8 +56,8 @@
                 <div class="modal-body">
                     <form name="AppointmentForm">
                         <input type="hidden" name="id" id="id" value="0" />
-                        <input type="text" id="doctorname" name="doctorname" class="form-control" placeholder="Doctor" /><br />
-                        <input type="text" id="date" name="date" class="form-control" placeholder="Appointment" /><br />
+                        <!--<input type="text" id="doctorname" name="doctorname" class="form-control" placeholder="Doctor" /><br />-->
+                        <!--<input type="text" id="date" name="date" class="form-control" placeholder="Appointment" /><br />-->
                         <input type="text" id="customername" name="customername" class="form-control" placeholder="Patient" /><br />
                         <input type="text" id="phone" name="phone" class="form-control" placeholder="Patient phone" /><br />
                         <input type="text" id="comment" name="comment" class="form-control" placeholder="Comment" />
@@ -74,15 +74,16 @@
     <script src="js/jquery.min.js"></script>
     <script src="js/jquery-ui.min.js"></script>
     <script src="js/jquery.datetimepicker.full.min.js"></script>
+    <script src="js/popper.min.js"></script>
     <script src="js/bootstrap.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js" integrity="sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4" crossorigin="anonymous"></script>
+
     <script>
         <!--Modal 2 javascript -->
 
         $(document).ready(
             function() {
                 initUIControls();
-                // kutsun välja resti teenuse funktsiooni
+                // kutsun välja booking funktsiooni
                 giveMeAllBookings();
             }
         );
@@ -106,18 +107,18 @@
                     contentType: "application/json",
                     complete: function (response) {
                         $('#appointment_list').empty();
-                        var doctors = response.responseJSON;
-                        for (var i = 0; i < doctors.length; i++) {
+                        var bookings = response.responseJSON;
+                        for (var i = 0; i < bookings.length; i++) {
                             var row = "<tr>";
-                            row = row + "<td>" + doctors[i].id + "</td>";
-                            row = row + "<td>" + doctors[i].doctorname + "</td>";
-                            row = row + "<td>" + doctors[i].date + "</td>";
-                            row = row + "<td>" + doctors[i].customername + "</td>";
-                            row = row + "<td>" + doctors[i].phone + "</td>";
-                            row = row + "<td>" + doctors[i].comment + "</td>";
+                            row = row + "<td>" + bookings[i].id + "</td>";
+                            row = row + "<td>" + bookings[i].doctorname + "</td>";
+                            row = row + "<td>" + bookings[i].date + "</td>";
+                            row = row + "<td>" + bookings[i].customername + "</td>";
+                            row = row + "<td>" + bookings[i].phone + "</td>";
+                            row = row + "<td>" + bookings[i].comment + "</td>";
                             row = row + "<td>";
                             row = row + '<td><button class="btn btn-sm" onClick="prepareAppointments('
-                                + doctors[i].id + ');">Book</button>&nbsp</td>';
+                                + bookings[i].id + ');">Book</button>&nbsp</td>';
 
                             row = row + "</tr>";
                             $('#appointment_list').append(row);
@@ -135,13 +136,13 @@
                     dataType: "json",
                     contentType: "application/json",
                     complete: function (response) {
-                        var appointment = response.responseJSON;
-                        $('#id').val(doctor.id);
-                        $('#doctorname').val(doctors.doctorname);
-                        $('#date').val(doctors.date);
-                        $('#customername').val(doctors.customername);
-                        $('#phone').val(doctors.phone);
-                        $('#comment').val(doctors.comment);
+                        var bookings = response.responseJSON;
+                        $('#id').val(bookings.id);
+                        $('#doctorname').val(bookings.doctorname);
+                        $('#date').val(bookings.date);
+                        $('#customername').val(bookings.customername);
+                        $('#phone').val(bookings.phone);
+                        $('#comment').val(bookings.comment);
                         $('#appointment_modal').modal('show');
                     }
                 }
@@ -180,11 +181,11 @@
         }
 
         function getData(data) {
-            var result1 = {};
+            var result = {};
             $.map(data, function(n) {
-                result1[n['name']] = n['value'];
+                result[n['name']] = n['value'];
             });
-            return result1;
+            return result;
         }
 
         <!--function deleteAppointment(AppointmentId) {-->
