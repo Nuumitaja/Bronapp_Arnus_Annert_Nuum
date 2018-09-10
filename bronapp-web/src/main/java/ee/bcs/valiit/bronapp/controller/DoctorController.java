@@ -18,7 +18,7 @@ public class DoctorController {
 
     @GetMapping(value = "/list", produces = "application/json")
     public List<Doctor> list() {
-        log.debug("Appointmnet list called ...");
+        log.debug("Appointment list called ...");
         List<Doctor> list = doctorService.list();
         list.sort((o1, o2) -> {
             if (o1.getId().compareTo(o2.getId()) > 0) {

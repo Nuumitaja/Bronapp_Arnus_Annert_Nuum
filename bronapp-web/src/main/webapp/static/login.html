@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>bronapp Login</title>
+    <link rel="stylesheet" href="css/bootstrap.min.css" />
+    <link rel="stylesheet" href="css/jquery-ui.min.css" />
+    <link rel="stylesheet" href="css/bronapp.css" />
+</head>
+<body>
+<div class="container">
+    <form id="loginForm" name="loginForm">
+        <label for="username">Username: </label><input id="username" name="username"><br/>
+        <label for="password">Password:</label><input id="password" name="password"><br/>
+        <button type="submit">Login</button>
+    </form>
+</div>
+
+<script src="js/jquery.min.js"></script>
+<script src="js/jquery-ui.min.js"></script>
+<script src="js/bootstrap.min.js"></script>
+
+<script>
+        jQuery(document).ready(function ($) {
+            $('#loginForm').submit(function (event) {
+                event.preventDefault();
+                var data = 'username=' + $('#username').val() + '&password=' + $('#password').val();
+                $.ajax({
+                    data: data,
+                    timeout: 1000,
+                    type: 'POST',
+                    url: '/bronapp/login'
+                }).done(function(data, textStatus, jqXHR) {
+                    window.location = '/bronapp';
+                }).fail(function(jqXHR, textStatus, errorThrown) {
+                    alert('Houston, we have a problem ...');
+                });
+            });
+        });
+    </script>
+
+</body>
+</html>
