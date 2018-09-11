@@ -1,3 +1,10 @@
 .ui-datepicker {
     background: white;
 }
+
+
+
+.nav-pills > li.active{
+  background-color: yellow;
+  color: white;
+}
