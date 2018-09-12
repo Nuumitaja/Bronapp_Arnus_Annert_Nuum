@@ -21,10 +21,6 @@ public class Role extends BaseEntity {
     @JoinColumn(name = "role_id")
     private List<UserRole> users;
 
-    @Override
-    public void setActive(boolean b) {
-
-    }
 }
 
 

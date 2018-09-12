@@ -19,6 +19,10 @@ public class DoctorService {
         return doctorRepository.findAll();
     }
 
+    public List<Doctor> listFree() {
+        return doctorRepository.findByCustomernameIsNull();
+    }
+
     public Doctor get(Long id) {
         return doctorRepository.getOne(id);
     }

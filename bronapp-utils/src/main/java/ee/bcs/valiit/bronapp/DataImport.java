@@ -13,12 +13,8 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.time.LocalDateTime;
-import java.time.ZoneId;
-import java.time.format.DateTimeFormatter;
 import java.util.Date;
 import java.util.List;
-import java.util.TimeZone;
 
 @Component
 public class DataImport {
@@ -50,7 +46,6 @@ public class DataImport {
 */
 
                 doctor = doctorRepository.save(doctor);
-                doctor.setActive(true);
             }
         } catch (IOException | ParseException e) {
             System.err.println("Importfaili lugemine ebaõnnestus!");

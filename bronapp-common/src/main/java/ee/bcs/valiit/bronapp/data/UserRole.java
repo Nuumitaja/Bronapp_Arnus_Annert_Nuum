@@ -30,8 +30,4 @@ public class UserRole extends BaseEntity {
         this.roleId = roleId;
     }
 
-    @Override
-    public void setActive(boolean b) {
-
-    }
 }

@@ -9,6 +9,8 @@ import java.util.List;
 public interface DoctorRepository extends JpaRepository<Doctor, Long> {
     List<Doctor> findAll();
 
+    List<Doctor> findByCustomernameIsNull();
+
     Doctor getOne(Long id);
 
     void delete(Doctor doctor);
