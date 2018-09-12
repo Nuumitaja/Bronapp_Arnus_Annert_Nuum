@@ -28,7 +28,7 @@
             <div id="booking" class="tab-pane fade show active" role="tabpanel" aria-labelledby="booking-tab">
                 Book an appointment here:
 
-                <table class="table table-striped">
+                <table class="table table-sm table-hover">
                     <thead>
                     <th scope="col">ID</th>
                     <th scope="col">Doctor</th>
@@ -113,9 +113,9 @@
                             row = row + "<td>" + bookings[i].id + "</td>";
                             row = row + "<td>" + bookings[i].doctorname + "</td>";
                             row = row + "<td>" + bookings[i].date + "</td>";
-                            row = row + "<td>" + bookings[i].customername + "</td>";
-                            row = row + "<td>" + bookings[i].phone + "</td>";
-                            row = row + "<td>" + bookings[i].comment + "</td>";
+                            <!--row = row + "<td>" + bookings[i].customername + "</td>";-->
+                            <!--row = row + "<td>" + bookings[i].phone + "</td>";-->
+                            <!--row = row + "<td>" + bookings[i].comment + "</td>";-->
                             row = row + "<td>";
                             row = row + '<td><button class="btn btn-sm" onClick="prepareAppointments('
                                 + bookings[i].id + ');">Book</button>&nbsp</td>';
@@ -136,13 +136,13 @@
                     dataType: "json",
                     contentType: "application/json",
                     complete: function (response) {
-                        var bookings = response.responseJSON;
-                        $('#id').val(bookings.id);
-                        $('#doctorname').val(bookings.doctorname);
-                        $('#date').val(bookings.date);
-                        $('#customername').val(bookings.customername);
-                        $('#phone').val(bookings.phone);
-                        $('#comment').val(bookings.comment);
+                        var booking = response.responseJSON;
+                        $('#id').val(booking.id);
+                        $('#doctorname').val(booking.doctorname);
+                        $('#date').val(booking.date);
+                        $('#customername').val(booking.customername);
+                        $('#phone').val(booking.phone);
+                        $('#comment').val(booking.comment);
                         $('#appointment_modal').modal('show');
                     }
                 }
