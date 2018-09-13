@@ -26,7 +26,8 @@
         <div class="tab-content" style="padding-bottom: 30px;">
 
             <div id="booking" class="tab-pane fade show active" role="tabpanel" aria-labelledby="booking-tab">
-                Book an appointment here:
+                <h2 style="text-align:center;">Book your visit here!</h2>
+                <p style="text-align:center;">Please select appointment and add your contact details.</p>
 
                 <table class="table table-sm table-hover">
                     <thead>
@@ -56,16 +57,16 @@
                 <div class="modal-body">
                     <form name="AppointmentForm">
                         <input type="hidden" name="id" id="id" value="0" />
-                        <input type="text" id="doctorname" name="doctorname" class="form-control" placeholder="Doctor" /><br />
-                        <input type="text" id="date" name="date" class="form-control" placeholder="Appointment" /><br />
-                        <input type="text" id="customername" name="customername" class="form-control" placeholder="Patient" /><br />
-                        <input type="text" id="phone" name="phone" class="form-control" placeholder="Patient phone" /><br />
-                        <input type="text" id="comment" name="comment" class="form-control" placeholder="Comment" />
+                        <input type="text" id="doctorname" name="doctorname" readonly="readonly" class="form-control" placeholder="Doctor" /><br />
+                        <input type="text" id="date" name="date" readonly="readonly" class="form-control" placeholder="Visit" /><br />
+                        <input type="text" id="customername" name="customername" class="form-control" placeholder="Your name" /><br />
+                        <input type="text" id="phone" name="phone" class="form-control" placeholder="Your phone number" /><br />
+                        <input type="text" id="comment" name="comment" class="form-control" placeholder="Pet info/ Purpose of the visit" />
                     </form>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-                    <button type="button" class="btn btn-primary" onclick="saveAppointment();" data-dismiss="modal">Book</button>
+                    <button type="button" class="btn btn-success" onclick="saveAppointment();" data-dismiss="modal">Book</button>
                 </div>
             </div>
         </div>
@@ -117,7 +118,7 @@
                             <!--row = row + "<td>" + bookings[i].phone + "</td>";-->
                             <!--row = row + "<td>" + bookings[i].comment + "</td>";-->
                             row = row + "<td>";
-                            row = row + '<td><button class="btn btn-sm" onClick="prepareAppointments('
+                            row = row + '<td><button class="btn btn-sm btn-warning" onClick="prepareAppointments('
                                 + bookings[i].id + ');">Book</button>&nbsp</td>';
 
                             row = row + "</tr>";
@@ -136,13 +137,13 @@
                     dataType: "json",
                     contentType: "application/json",
                     complete: function (response) {
-                        var booking = response.responseJSON;
-                        $('#id').val(booking.id);
-                        $('#doctorname').val(booking.doctorname);
-                        $('#date').val(booking.date);
-                        $('#customername').val(booking.customername);
-                        $('#phone').val(booking.phone);
-                        $('#comment').val(booking.comment);
+                        var doctor = response.responseJSON;
+                        $('#id').val(doctor.id);
+                        $('#doctorname').val(doctor.doctorname);
+                        $('#date').val(doctor.date);
+                        $('#customername').val(doctor.customername);
+                        $('#phone').val(doctor.phone);
+                        $('#comment').val(doctor.comment);
                         $('#appointment_modal').modal('show');
                     }
                 }

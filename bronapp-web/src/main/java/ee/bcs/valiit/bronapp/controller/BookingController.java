@@ -4,9 +4,7 @@ import ee.bcs.valiit.bronapp.data.Doctor;
 import ee.bcs.valiit.bronapp.service.DoctorService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -17,6 +15,22 @@ public class BookingController {
 
     @Autowired
     private DoctorService doctorService;
+
+    @GetMapping(value = "/get/{id}", produces = "application/json")
+    public Doctor get(@PathVariable Long id) {
+        return doctorService.get(id);
+    }
+
+    @PostMapping(value = "/save")
+    public void save(@RequestBody Doctor doctor) {
+        Doctor dbDoctor = doctorService.get(doctor.getId());
+        dbDoctor.setDoctorname(doctor.getDoctorname());
+        dbDoctor.setDate(doctor.getDate());
+        dbDoctor.setCustomername(doctor.getCustomername());
+        dbDoctor.setPhone(doctor.getPhone());
+        dbDoctor.setComment(doctor.getComment());
+        doctorService.save(dbDoctor);
+    }
 
     @GetMapping("/list")
     public List<Doctor> list() {

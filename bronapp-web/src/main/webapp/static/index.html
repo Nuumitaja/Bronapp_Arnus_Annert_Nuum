@@ -67,7 +67,7 @@
                     <form name="doctorForm">
                         <input type="hidden" name="id" id="id" value="0" />
                         <input type="text" id="doctorname" name="doctorname" class="form-control" placeholder="Doctor" /><br />
-                        <input type="text" id="date" name="date" class="form-control" placeholder="Appointment" /><br />
+                        <input type="text" id="date" name="date" readonly="readonly" class="form-control" placeholder="Appointment" /><br />
                         <input type="text" id="customername" name="customername" class="form-control" placeholder="Patient" /><br />
                         <input type="text" id="phone" name="phone" class="form-control" placeholder="Patient phone" /><br />
                         <input type="text" id="comment" name="comment" class="form-control" placeholder="Comment" />
@@ -225,7 +225,7 @@
         }
 
         function deleteDoctor(doctorId) {
-            if (confirm("Oled Sa ikka täie aru juures?")) {
+            if (confirm("Are you sure you would like to delete the appointment?")) {
                 $.ajax(
                     {
                         method: "POST",
