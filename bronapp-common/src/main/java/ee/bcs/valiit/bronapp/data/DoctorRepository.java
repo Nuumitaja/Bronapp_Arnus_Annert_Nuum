@@ -9,7 +9,7 @@ import java.util.List;
 public interface DoctorRepository extends JpaRepository<Doctor, Long> {
     List<Doctor> findAll();
 
-    List<Doctor> findByCustomernameIsNull();
+    List<Doctor> findByCustomernameIsNullOrCustomernameEquals(String str);
 
     Doctor getOne(Long id);
 

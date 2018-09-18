@@ -20,7 +20,7 @@ public class DoctorService {
     }
 
     public List<Doctor> listFree() {
-        return doctorRepository.findByCustomernameIsNull();
+        return doctorRepository.findByCustomernameIsNullOrCustomernameEquals("");
     }
 
     public Doctor get(Long id) {
