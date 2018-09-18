@@ -101,7 +101,7 @@
 
                 $('#myInput').on("keyup", function() {
                     var value = $(this).val().toLowerCase();
-                    $('#doctor_list').filter(function() {
+                    $('#doctor_list tr').filter(function() {
                         $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
                     });
                 });

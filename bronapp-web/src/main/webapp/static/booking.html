@@ -28,7 +28,7 @@
             <div id="booking" class="tab-pane fade show active" role="tabpanel" aria-labelledby="booking-tab">
                 <h2 style="text-align:center;">Book your visit here!</h2>
                 <p style="text-align:center;">Please select appointment and add your contact details.</p>
-
+                <input class="form-control" id="myInput" type="text" placeholder="Search">
                 <table class="table table-sm table-hover">
                     <thead>
                     <th scope="col">ID</th>
@@ -86,6 +86,13 @@
                 initUIControls();
                 // kutsun välja booking funktsiooni
                 giveMeAllBookings();
+
+                $('#myInput').on("keyup", function() {
+                    var value = $(this).val().toLowerCase();
+                    $('#appointment_list tr').filter(function() {
+                        $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+                    });
+                });
             }
         );
 
