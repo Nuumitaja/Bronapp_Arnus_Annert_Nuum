@@ -30,6 +30,7 @@
 
         <div class="tab-content" style="padding-bottom: 30px;">
             <div id="doctors" class="tab-pane fade show active" role="tabpanel" aria-labelledby="doctors-tab">
+                <input class="form-control" id="myInput" type="text" placeholder="Search">
                 <table class="table table-sm table-hover">
                     <thead>
                     <th scope="col">ID</th>
@@ -90,12 +91,20 @@
 
     <script>
 
+
         $(document).ready(
             function() {
                 initUIControls();
                 // kutsun välja resti teenuse funktsiooni
                 giveMeUser();
                 giveMeAllDoctors();
+
+                $('#myInput').on("keyup", function() {
+                    var value = $(this).val().toLowerCase();
+                    $('#doctor_list').filter(function() {
+                        $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+                    });
+                });
             }
         );
 
