@@ -14,15 +14,17 @@ The email should be semantically valid, other fields do not have specific requir
 
 
 BOOKING
+
 For logged in Administrator it is possible to see all Doctors and all available appointment times, add new doctors, new appointment slots and add new bookings, delete or edit existing bookings.
 
 For visitor it is possible to book an available appointment without logging in to the system. 
 
 
 FILTERING/SEARCH
+
 The search functionality allows the admin to filter the appointments based on a list of doctors. 
 
-Languages
+LANGUAGES
 
 Java
 JavaScript
@@ -31,7 +33,7 @@ HTML
 CSS
 
 
-Tools
+TOOLS
 
 
 •	Eclipse JEE IDE for programming in Java with additional tools. It was used for developing back-end business logic.
