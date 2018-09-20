@@ -1,11 +1,7 @@
 # Bronapp_Arnus_Annert_Nuum
 
-About
 This project is an appointment scheduling application for a Veterinary Clinic. 
 It allows clinics and similar businesses manage appointments and bookings.
-
-Functions:
-
 
 PAGE ROLES: 
 •	Administrator 
